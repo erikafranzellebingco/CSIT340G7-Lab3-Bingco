@@ -1,18 +1,21 @@
+import "./App.css";
+
 const Header = (props) => {
-  return <h1>{props.course}</h1>;
+  return <h1 className="course-header">{props.course.name}</h1>;
 };
 
 const Part = (props) => {
   return (
-    <p>
-      {props.part.name} {props.part.exercises}
-    </p>
+    <div className="part-card">
+      <span>{props.part.name}</span>
+      <span className="badge">{props.part.exercises} </span>
+    </div>
   );
 };
 
 const Content = (props) => {
   return (
-    <div>
+    <div className="content-section">
       <Part part={props.parts[0]} />
       <Part part={props.parts[1]} />
       <Part part={props.parts[2]} />
@@ -21,50 +24,52 @@ const Content = (props) => {
 };
 
 const Total = (props) => {
+  const totalExercises =
+    props.parts[0].exercises +
+    props.parts[1].exercises +
+    props.parts[2].exercises;
+
   return (
-    <p>
-      Number of exercises{" "}
-      {props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises}
-    </p>
+    <div className="total-section">Number of Exercises: {totalExercises}</div>
   );
 };
 
 const Footer = (props) => {
   return (
-    <p>
+    <div className="app-footer">
       {props.name} - {props.courseCode} - {props.section}
-    </p>
+    </div>
   );
 };
 
 const App = () => {
-  const course = "Industry Elective 1";
-  const parts = [
-    {
-      name: "Project Management for IT",
-      exercises: 3,
-    },
-    {
-      name: "Data Analytics 1",
-      exercises: 3,
-    },
-    {
-      name: "Information Management 2",
-      exercises: 3,
-    },
-  ];
+  const course = {
+    name: "Industry Elective 1",
+    parts: [
+      {
+        name: "Project Management for IT",
+        exercises: 3,
+      },
+      {
+        name: "Data Analytics 1",
+        exercises: 3,
+      },
+      {
+        name: "Information Management 2",
+        exercises: 3,
+      },
+    ],
+  };
 
   const name = "Erika Franzelle R. Bingco";
   const courseCode = "CSIT340";
   const section = "G7";
 
   return (
-    <div>
+    <div className="app-container">
       <Header course={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
       <Footer name={name} courseCode={courseCode} section={section} />
     </div>
   );
